@@ -8,6 +8,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'org.jacoco:org.jacoco.core:0.8.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -19,6 +20,12 @@ allprojects {
     }
 }
 
+subprojects {
+    apply from: "$rootDir/tools/jacoco.gradle"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply from: "$rootDir/tools/jacocoMergeReport.gradle"

@@ -1,0 +1,53 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.1'
+}
+
+def testTasks = []
+def coverageClassDirs = []
+def coverageSourceDirs = []
+
+final fileFilter = [
+        '**/R.class',
+        '**/R$*.class',
+        '**/*$ViewInjector*.*',
+        '**/*$ViewBinder*.*',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*$Lambda$*.*',
+        '**/*$inlined$*.*',
+        '**/*Test*.*',
+        'android/**/*.*',
+        '**/*$[0-9].*'
+]
+
+final modules = rootProject.subprojects.collect { it.project.name }.flatten()
+
+modules.each { module ->
+    testTasks.add("$module:jacocoTestReport")
+    coverageSourceDirs.add("$module/src/main/kotlin")
+    coverageClassDirs.add(fileTree(dir: "$module/build/tmp/kotlin-classes/debug", excludes: fileFilter))
+}
+
+task mergeReports(type: JacocoReport, dependsOn: testTasks) {
+    def executionPaths = []
+
+    testTasks.each { executionPaths.add(tasks.getByPath(it).executionData) }
+    classDirectories = files(coverageClassDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files(executionPaths)
+
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        csv.enabled = false
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll {
+            it.exists()
+        })
+    }
+
+}
