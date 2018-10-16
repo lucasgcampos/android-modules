@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/repository_screen"
+    android:id="@+id/pull_request_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RepositoryActivity">
+    tools:context=".feature.PullRequestActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/repositories"
+        android:id="@+id/pull_requests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="24dp"
@@ -15,7 +15,7 @@
         android:paddingStart="16dp"
         android:paddingBottom="16dp"
         android:clipToPadding="false"
-        tools:listitem="@layout/view_repository"
+        tools:listitem="@layout/view_pull_request"
         tools:itemCount="2" />
 
     <ProgressBar

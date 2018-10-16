@@ -5,12 +5,20 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="Text.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="Text.14sp">
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Text.18sp">
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.12sp.Bold">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Text.18sp.Bold">

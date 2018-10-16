@@ -6,11 +6,12 @@ import lucascampos.modules.base.data.model.Repository
 import lucascampos.modules.repository.widget.RepositoryView
 
 class RepositoryAdapter(
-        private val repositories: List<Repository>
+        private val repositories: List<Repository>,
+        private val onSelectedItem: (Repository) -> Unit
 ) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) =
-            ViewHolder(RepositoryView(parent.context))
+            ViewHolder(RepositoryView(parent.context), onSelectedItem)
 
     override fun getItemCount() = repositories.size
 
@@ -18,9 +19,15 @@ class RepositoryAdapter(
         holder.bindView(repositories[position])
     }
 
-    class ViewHolder(val view: RepositoryView) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(
+            private val view: RepositoryView,
+            private val onSelectedItem: (Repository) -> Unit
+    ) : RecyclerView.ViewHolder(view) {
 
-        fun bindView(repository: Repository) { view.repository = repository }
+        fun bindView(repository: Repository) {
+            view.repository = repository
+            view.setOnClickListener { onSelectedItem(repository) }
+        }
 
     }
 }
