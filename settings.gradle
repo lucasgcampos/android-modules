@@ -1,1 +1,1 @@
-include ':app', ':repository', ':base', ':pullrequest'
+include ':app', ':repository', ':base', ':pullrequest', ':test'
